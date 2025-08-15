@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: platform  # Change from 'default' to 'platform' to match your apps
+  source:
+    repoURL: 'https://Vincent_Riba@bitbucket.org/vaimo/apache-skywalking-vince-test.git'  # Your actual repo URL
+    targetRevision: HEAD
+    path: bootstrap/applications  # Correct path based on your file structure
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

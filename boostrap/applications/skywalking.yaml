@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: skywalking
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreOrder=true
+    argocd.argoproj.io/sync-options: Replace=true
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: 'skywalking-{{cluster}}'
+      namespace: argocd
+    spec:
+      project: platform
+      source:
+        repoURL: 'https://Vincent_Riba@bitbucket.org/vaimo/apache-skywalking-vince-test.git'
+        targetRevision: HEAD
+        path: 'addons/skywalking/4.3.0'
+        helm:
+          valueFiles:
+            - values.yaml
+      destination:
+        server: '{{url}}'
+        namespace: skywalking
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: false
+        syncOptions:
+          - Validate=true
+          - PrunePropagationPolicy=foreground
+          - CreateNamespace=true
+          - PruneLast=true
+        retry:
+          limit: 2
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m

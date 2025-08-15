@@ -1,0 +1,137 @@
+esInit:
+  nodeAffinity: {}
+  nodeSelector: {}
+  tolerations: []
+fullnameOverride: "skywalking"
+imagePullSecrets: []
+initContainer:
+  image: busybox
+  tag: "1.30"
+nameOverride: ""
+oap:
+  antiAffinity: soft
+  dynamicConfigEnabled: false
+  envoy:
+    als:
+      enabled: false
+  image:
+    pullPolicy: Always
+    repository: skywalking.docker.scarf.sh/apache/skywalking-oap-server
+    tag: "10.1.0"
+  initEs: false  # Changed to false since you're using PostgreSQL
+  # Override JAVA_OPTS completely to remove no-init mode
+  javaOpts: "-Xms1g -Xmx6g"
+  name: oap
+  nodeAffinity: {}
+  nodeSelector: {}
+  ports:
+    grpc: "11800"
+    rest: "12800"
+  replicas: 2
+  resources:
+    limits:
+      memory: "8Gi"
+    requests:
+      memory: "8Gi"
+  service:
+    type: ClusterIP
+  storageType: postgresql
+  # Clean up the environment variables to remove duplicates
+  env:
+    # Override JAVA_OPTS directly to ensure no-init mode is removed
+    JAVA_OPTS: "-Xms1g -Xmx6g"
+    # Single definition for each environment variable
+    SW_CLUSTER: "kubernetes"
+    SW_CLUSTER_K8S_LABEL: "app=skywalking,release=skywalking,component=oap"
+    SW_CLUSTER_K8S_NAMESPACE: "skywalking"
+    SW_DATA_SOURCE_PASSWORD: pass4skyuser
+    SW_DATA_SOURCE_USER: skyuser
+    SW_JDBC_URL: "jdbc:postgresql://192.168.122.197:5432/skywalking"
+    SW_STORAGE: "postgresql"
+    # Disable UI template initialization completely
+    SW_CORE_UI_TEMPLATE_DISABLE: "true"
+
+  podAnnotations:
+    argocd.argoproj.io/compare-options: IgnoreOrder=true
+    argocd.argoproj.io/sync-options: Replace=true
+    
+  # Use an initContainer to remove the conflicting template file completely
+  initContainers:
+    - name: remove-conflicting-template
+      image: busybox:1.30
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          echo "Checking for conflicting UI templates..."
+          if [ -f /skywalking/config/ui-initialized-templates/mesh-process.json ]; then
+            echo "Removing conflicting mesh-process.json template"
+            rm -f /skywalking/config/ui-initialized-templates/mesh-process.json
+          fi
+          echo "Template cleanup completed"
+      volumeMounts:
+        - name: skywalking-config
+          mountPath: /skywalking/config
+
+# Storage section
+storage:
+  postgresql:
+    url: "jdbc:postgresql://192.168.122.197:5432/skywalking"
+    user: skyuser
+    password: pass4skyuser
+  elasticsearch:
+    host: "dummy-elasticsearch"
+    port: 9200
+satellite:
+  antiAffinity: soft
+  enabled: false
+  env: null
+  image:
+    pullPolicy: IfNotPresent
+    repository: skywalking.docker.scarf.sh/apache/skywalking-satellite
+    tag: "10.1.0"
+  name: satellite
+  nodeAffinity: {}
+  nodeSelector: {}
+  podAnnotations: null
+  ports:
+    grpc: "11800"
+    prometheus: "1234"
+  replicas: 1
+  resources: {}
+  service:
+    type: ClusterIP
+  tolerations: []
+serviceAccounts:
+  oap: null
+ui:
+  image:
+    pullPolicy: IfNotPresent
+    repository: skywalking.docker.scarf.sh/apache/skywalking-ui
+    tag: "10.1.0"
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - rke2-skywalking.vaimo-sa-cloud.co.za
+    path: /
+    tls: []
+    annotations:
+      nginx.ingress.kubernetes.io/auth-type: basic
+      nginx.ingress.kubernetes.io/auth-secret: skywalking-basic-auth
+      nginx.ingress.kubernetes.io/auth-realm: "Authentication Required for SkyWalking"
+    service:
+      name: skywalking-ui
+      port: 8080
+  name: ui
+  nodeAffinity: {}
+  nodeSelector: {}
+  replicas: 1
+  service:
+    annotations: {}
+    externalPort: 80
+    internalPort: 8080
+    type: ClusterIP
+  podAnnotations:
+    argocd.argoproj.io/compare-options: IgnoreOrder=true
+    argocd.argoproj.io/sync-options: Replace=true
+  tolerations: []
