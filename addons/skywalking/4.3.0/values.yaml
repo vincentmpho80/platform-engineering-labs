@@ -46,7 +46,7 @@ oap:
     SW_CLUSTER_K8S_NAMESPACE: "skywalking"
     SW_DATA_SOURCE_PASSWORD: pass4skyuser
     SW_DATA_SOURCE_USER: skyuser
-    SW_JDBC_URL: "jdbc:postgresql://192.168.122.197:5432/skywalking"
+    SW_JDBC_URL: "jdbc:postgresql://192.168.122.129:5432/skywalking"
     SW_STORAGE: "postgresql"
     # Disable UI template initialization completely
     SW_CORE_UI_TEMPLATE_DISABLE: "true"
@@ -75,7 +75,7 @@ oap:
 # Storage section
 storage:
   postgresql:
-    url: "jdbc:postgresql://192.168.122.197:5432/skywalking"
+    url: "jdbc:postgresql://192.168.122.129:5432/skywalking"
     user: skyuser
     password: pass4skyuser
   elasticsearch:
