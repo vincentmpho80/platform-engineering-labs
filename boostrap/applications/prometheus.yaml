@@ -8,7 +8,7 @@ metadata:
 spec:
   project: platform
   source:
-    repoURL: https://Vincent_Riba@bitbucket.org/vaimo/apache-skywalking-vince-test.git
+    repoURL: https://github.com/vincentmpho80/platform-engineering-labs.git
     targetRevision: HEAD
     path: 'addons/prometheus/3.5.0'
     helm:

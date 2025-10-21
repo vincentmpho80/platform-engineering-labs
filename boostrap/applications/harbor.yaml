@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault
+  name: harbor
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,14 +10,14 @@ spec:
   source:
     repoURL: https://github.com/vincentmpho80/platform-engineering-labs.git
     targetRevision: HEAD
-    path: 'addons/vault/1.19.0'
+    path: 'addons/harbor/1.18.0'
     helm:
-      releaseName: vault
+      releaseName: harbor
       valueFiles:
         - values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: vault
+    namespace: harbor
   syncPolicy:
     automated:
       prune: true

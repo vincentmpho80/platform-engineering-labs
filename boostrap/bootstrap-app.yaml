@@ -8,7 +8,7 @@ metadata:
 spec:
   project: platform  # Change from 'default' to 'platform' to match your apps
   source:
-    repoURL: 'https://Vincent_Riba@bitbucket.org/vaimo/apache-skywalking-vince-test.git'  # Your actual repo URL
+    repoURL: 'https://github.com/vincentmpho80/platform-engineering-labs.git'  # Your actual repo URL
     targetRevision: HEAD
     path: bootstrap/applications  # Correct path based on your file structure
   destination:
