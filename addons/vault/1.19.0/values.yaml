@@ -1133,6 +1133,13 @@ csi:
   #   mountPath: "/vault/tls"
   #   readOnly: true
 
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 1Gi
 
   # Override the default secret name for the CSI Provider's HMAC key used for
   # generating secret versions.
@@ -1140,7 +1147,8 @@ csi:
 
   # Allow modification of the hostNetwork parameter to avoid the need of a
   # dedicated pod ip
-  
+  hostNetwork: false
+
   # Settings for the daemonSet used to run the provider.
   daemonSet:
     updateStrategy:
