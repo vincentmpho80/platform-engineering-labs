@@ -1,7 +1,0 @@
-sidecars:
- - name: your-image-name
-   image: your-image
-   imagePullPolicy: Always
-   ports:
-     - name: portname
-       containerPort: 1234

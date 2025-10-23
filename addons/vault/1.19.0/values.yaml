@@ -621,25 +621,23 @@ server:
   # Commenting out or setting as empty the affinity variable, will allow
   # deployment to single node services such as Minikube
   # This should be either a multi-line string or YAML matching the PodSpec's affinity field.
-  affinity: |
+  affinity:
     podAntiAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchLabels:
-              app.kubernetes.io/name: {{ template "vault.name" . }}
+              app.kubernetes.io/name: vault
               app.kubernetes.io/instance: "{{ .Release.Name }}"
               component: server
           topologyKey: kubernetes.io/hostname
-  affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: node-role
-              operator: In
-              values:
-                - worker
-
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node-role
+                operator: In
+                values:
+                  - worker
   # Topology settings for server pods
   # ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
   # This should be either a multi-line string or YAML matching the topologySpreadConstraints array
@@ -791,6 +789,11 @@ server:
     size: 2Gi
     # Location where the PVC will be mounted.
     mountPath: "/vault/data"
+    # Existing PVCs will be used instead
+    existingClaim:
+      - data-vault-0
+      - data-vault-1
+      - data-vault-2
     # Name of the storage class to use.  If null it will use the
     # configured default Storage Class.
     storageClass: nfs-storage-class
