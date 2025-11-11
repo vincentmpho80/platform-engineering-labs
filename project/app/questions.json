@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "category": "Bash Troubleshooting",
+    "question": "You run `for f in $(ls *.log); do cat $f; done` but it fails on filenames with spaces. What’s the best fix?",
+    "options": [
+      "Quote $f in the loop: `for f in *.log; do cat \"$f\"; done`",
+      "Escape spaces manually in filenames",
+      "Use `set -e` to stop on errors",
+      "Change IFS to ':'"
+    ],
+    "answer": "Quote $f in the loop: `for f in *.log; do cat \"$f\"; done`"
+  },
+  {
+    "id": 2,
+    "category": "Bash Troubleshooting",
+    "question": "What will `set -euo pipefail` do in a script?",
+    "options": [
+      "Continue even if a command fails",
+      "Exit on error, unset variables, and fail on pipe errors",
+      "Ignore unset variables",
+      "Suppress error messages"
+    ],
+    "answer": "Exit on error, unset variables, and fail on pipe errors"
+  },
+  {
+    "id": 3,
+    "category": "Bash Troubleshooting",
+    "question": "What’s the correct syntax to check if a directory exists in Bash?",
+    "options": [
+      "[ -d /tmp/mydir ]",
+      "[ -f /tmp/mydir ]",
+      "test -f /tmp/mydir",
+      "[[ dir /tmp/mydir ]]"
+    ],
+    "answer": "[ -d /tmp/mydir ]"
+  },
+  {
+    "id": 4,
+    "category": "Bash Troubleshooting",
+    "question": "You want to extract the second column from a CSV file. Which command works best?",
+    "options": [
+      "cut -d, -f2 file.csv",
+      "awk '{print $2}' file.csv",
+      "grep -o 2 file.csv",
+      "sed 's/,/ /g' file.csv"
+    ],
+    "answer": "cut -d, -f2 file.csv"
+  },
+  {
+    "id": 5,
+    "category": "Bash Troubleshooting",
+    "question": "In a cron job, environment variables like $PATH are missing. What should you do?",
+    "options": [
+      "Source ~/.bashrc in the script",
+      "Use absolute paths for commands",
+      "Restart cron daemon",
+      "Set PATH in /etc/passwd"
+    ],
+    "answer": "Use absolute paths for commands"
+  },
+  {
+    "id": 6,
+    "category": "Kubernetes Scheduling",
+    "question": "Which field ensures a Pod runs only on nodes with specific labels?",
+    "options": [
+      "nodeSelector",
+      "affinity",
+      "tolerations",
+      "topologySpreadConstraints"
+    ],
+    "answer": "nodeSelector"
+  },
+  {
+    "id": 7,
+    "category": "Kubernetes Scheduling",
+    "question": "What does a Pod’s ‘toleration’ allow it to do?",
+    "options": [
+      "Run on tainted nodes",
+      "Control CPU usage",
+      "Evict itself automatically",
+      "Mount extra volumes"
+    ],
+    "answer": "Run on tainted nodes"
+  },
+  {
+    "id": 8,
+    "category": "Kubernetes Scheduling",
+    "question": "How can you ensure one Pod per node for a DaemonSet?",
+    "options": [
+      "Kubernetes does this automatically for DaemonSets",
+      "Use podAntiAffinity",
+      "Label nodes uniquely",
+      "Set replicas equal to node count"
+    ],
+    "answer": "Kubernetes does this automatically for DaemonSets"
+  },
+  {
+    "id": 9,
+    "category": "Kubernetes Scheduling",
+    "question": "What does setting `topologySpreadConstraints` achieve?",
+    "options": [
+      "Distribute Pods evenly across failure domains",
+      "Prevent Pods from using node selectors",
+      "Force all Pods to run on one node",
+      "Disable node affinity"
+    ],
+    "answer": "Distribute Pods evenly across failure domains"
+  },
+  {
+    "id": 10,
+    "category": "Kubernetes Scheduling",
+    "question": "A Pod is Pending due to ‘0/3 nodes available: node(s) didn’t match node selector’. How to fix?",
+    "options": [
+      "Label a node to match the selector",
+      "Restart kubelet",
+      "Delete the Pod",
+      "Scale deployment to 0 and back to 1"
+    ],
+    "answer": "Label a node to match the selector"
+  },
+  {
+    "id": 11,
+    "category": "ArgoCD GitOps",
+    "question": "What does ArgoCD’s ‘sync-wave’ annotation control?",
+    "options": [
+      "The order in which resources are applied",
+      "Sync retry interval",
+      "Git polling frequency",
+      "Auto-sync enablement"
+    ],
+    "answer": "The order in which resources are applied"
+  },
+  {
+    "id": 12,
+    "category": "ArgoCD GitOps",
+    "question": "You notice ArgoCD showing ‘OutOfSync’. What does this mean?",
+    "options": [
+      "Kubernetes resources differ from Git manifests",
+      "Network issue with ArgoCD server",
+      "Helm values mismatch",
+      "User permissions issue"
+    ],
+    "answer": "Kubernetes resources differ from Git manifests"
+  },
+  {
+    "id": 13,
+    "category": "ArgoCD GitOps",
+    "question": "Which of the following enables ArgoCD to deploy from private Git repos?",
+    "options": [
+      "Adding a repository credential secret",
+      "Disabling TLS verification",
+      "Using kubectl port-forward",
+      "Modifying argocd-cm"
+    ],
+    "answer": "Adding a repository credential secret"
+  },
+  {
+    "id": 14,
+    "category": "ArgoCD GitOps",
+    "question": "What does ArgoCD’s ‘self-heal’ feature do?",
+    "options": [
+      "Automatically reverts drifted resources back to Git state",
+      "Creates backups of manifests",
+      "Restarts unhealthy Pods",
+      "Scales down old deployments"
+    ],
+    "answer": "Automatically reverts drifted resources back to Git state"
+  },
+  {
+    "id": 15,
+    "category": "ArgoCD GitOps",
+    "question": "How can you manage multiple ArgoCD Applications declaratively?",
+    "options": [
+      "Use an ApplicationSet",
+      "Use Helm hooks",
+      "Use Kustomize overlays",
+      "Manually apply manifests"
+    ],
+    "answer": "Use an ApplicationSet"
+  },
+  {
+    "id": 16,
+    "category": "Networking & Load Balancing",
+    "question": "Which load balancing algorithm uses connection persistence based on client IP?",
+    "options": [
+      "Source Hash",
+      "Round Robin",
+      "Least Connections",
+      "Weighted Random"
+    ],
+    "answer": "Source Hash"
+  },
+  {
+    "id": 17,
+    "category": "Networking & Load Balancing",
+    "question": "What’s the function of kube-proxy in a Kubernetes cluster?",
+    "options": [
+      "Implements Kubernetes Service load balancing",
+      "Monitors node health",
+      "Routes external HTTP traffic",
+      "Handles container logs"
+    ],
+    "answer": "Implements Kubernetes Service load balancing"
+  },
+  {
+    "id": 18,
+    "category": "Networking & Load Balancing",
+    "question": "Which Kubernetes Service type creates a cloud load balancer?",
+    "options": [
+      "LoadBalancer",
+      "ClusterIP",
+      "NodePort",
+      "ExternalName"
+    ],
+    "answer": "LoadBalancer"
+  },
+  {
+    "id": 19,
+    "category": "Networking & Load Balancing",
+    "question": "What’s the main purpose of kube-dns/CoreDNS?",
+    "options": [
+      "Provide internal DNS resolution for Services and Pods",
+      "Monitor cluster logs",
+      "Manage TLS certificates",
+      "Balance traffic between nodes"
+    ],
+    "answer": "Provide internal DNS resolution for Services and Pods"
+  },
+  {
+    "id": 20,
+    "category": "Networking & Load Balancing",
+    "question": "You expose a service with NodePort 30080, but can’t access it externally. What’s likely missing?",
+    "options": [
+      "Firewall or security group rule",
+      "Pod liveness probe",
+      "ClusterRole binding",
+      "Pod anti-affinity rule"
+    ],
+    "answer": "Firewall or security group rule"
+  },
+  {
+    "id": 21,
+    "category": "Security / DevSecOps",
+    "question": "Which tool performs container image vulnerability scanning?",
+    "options": [
+      "Trivy",
+      "Prometheus",
+      "Kustomize",
+      "Grafana"
+    ],
+    "answer": "Trivy"
+  },
+  {
+    "id": 22,
+    "category": "Security / DevSecOps",
+    "question": "Which of these helps enforce Kubernetes security policies?",
+    "options": [
+      "OPA Gatekeeper",
+      "kubectl proxy",
+      "Helm",
+      "Kube-proxy"
+    ],
+    "answer": "OPA Gatekeeper"
+  },
+  {
+    "id": 23,
+    "category": "Security / DevSecOps",
+    "question": "What’s the recommended way to manage secrets in GitOps pipelines?",
+    "options": [
+      "Use SOPS with encrypted files",
+      "Store plain-text secrets in Git",
+      "Use ConfigMaps instead of Secrets",
+      "Disable encryption for speed"
+    ],
+    "answer": "Use SOPS with encrypted files"
+  },
+  {
+    "id": 24,
+    "category": "Security / DevSecOps",
+    "question": "In Vault, what is a lease?",
+    "options": [
+      "The duration a secret is valid before renewal",
+      "A policy that restricts access",
+      "A secret version ID",
+      "A Kubernetes RBAC binding"
+    ],
+    "answer": "The duration a secret is valid before renewal"
+  },
+  {
+    "id": 25,
+    "category": "Security / DevSecOps",
+    "question": "Which of the following would detect container runtime anomalies?",
+    "options": [
+      "Falco",
+      "Kustomize",
+      "Helm",
+      "Argo Rollouts"
+    ],
+    "answer": "Falco"
+  }
+]
